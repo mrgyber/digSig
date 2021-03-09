@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <dirent.h>
+
+#include "dirent.h"
 
 
 struct fileItems_t {
@@ -88,7 +89,7 @@ void writeCert(char *srcFilePath, char *dstFilePath, char *certFilePath) {
 
     /* Allocate memory for cert */
     unsigned int certSize = fileItems->CertSize;
-    uint8_t cert[certSize];
+    uint8_t cert[4096];
 
     /* Finish if the cert is not found */
     if (fileItems->CertLOC == 0 || certSize == 0) {
@@ -106,7 +107,7 @@ void writeCert(char *srcFilePath, char *dstFilePath, char *certFilePath) {
     getFileItems(srcFile, fileItems);
     fseek(srcFile, 0, SEEK_SET);
 
-    /* Copy file without cert */
+    /* Copy file without cert 123 */
     FILE *dstFile = fopen(dstFilePath, "wb");
     uint8_t buff[1];
     while (fread(buff, 1, 1, srcFile) > 0) {
